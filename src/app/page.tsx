@@ -11,13 +11,12 @@ export default function Home() {
   return (
     !click ? (
       <main className="flex flex-col items-center justify-center min-h-[80vh] overflow-auto w-full px-4">
-        
-        <div className="w-full max-w-2xl flex flex-col items-center gap-6 mt-16">
-          <span className="badge self-center mt-4">New The Solana Playground is in beta.</span>
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-center mt-2 mb-2">
+        <div className="w-full max-w-2xl flex flex-col items-center gap-6 mt-16 px-4">
+          <span className="badge self-center mt-4 text-sm">New The Solana Playground is in beta.</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-center mt-2 mb-2">
             What can I help you build?
           </h1>
-          <p className="text-lg text-gray-400 text-center mb-4 max-w-xl">
+          <p className="text-base md:text-lg text-gray-400 text-center mb-4 max-w-xl">
             Ask about Solana smart contracts, generate code, or simulate results. No code required.
           </p>
         </div>
@@ -27,14 +26,14 @@ export default function Home() {
         >
           Get Started
         </button>
-
       </main>
     ) : (
       <main className="flex flex-col items-center justify-center min-h-[80vh] overflow-auto w-full px-4">
-        <div className=" w-[1500px] p-6 flex flex-col gap-4">
+        <div className="w-full max-w-screen-xl p-4 md:p-6 flex flex-col gap-4">
           <ChatInterface />
         </div>
       </main>
     )
+
   )
 }

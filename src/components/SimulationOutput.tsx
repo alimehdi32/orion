@@ -35,17 +35,16 @@ export default function SimulationOutput() {
       return () => clearTimeout(timer);
     }
   }, [visibleLinesCount, simulationLines.length]); // Dependencies: re-run effect when visibleLinesCount changes
-                                                // or if the total number of lines changes (though it's static here).
+  // or if the total number of lines changes (though it's static here).
 
   return (
-    <div className="h-full flex flex-col"> {/* Use flex-col for better layout control */}
-      <div className="text-sm font-medium text-gray-700 mb-2">Simulation Output</div>
-      <div className="bg-gray-900 text-gray-100 rounded-lg p-4 font-mono text-sm overflow-auto flex-grow"> {/* flex-grow to take available height */}
+    <div className="h-full w-full flex flex-col">
+      <div className="text-sm font-medium text-gray-700 mb-2">
+        Simulation Output
+      </div>
+      <div className="bg-gray-900 text-gray-100 rounded-lg p-4 font-mono text-sm overflow-auto flex-grow max-h-[60vh]">
         <div className="space-y-1">
-          {/* Map over the simulationLines array and render only the lines up to visibleLinesCount. */}
           {simulationLines.slice(0, visibleLinesCount).map((line, index) => (
-            // Use a key for efficient list rendering in React.
-            // The key should be stable and unique, index is fine here since lines don't reorder.
             <div key={index} className={line.className}>
               {line.text}
             </div>
@@ -53,5 +52,6 @@ export default function SimulationOutput() {
         </div>
       </div>
     </div>
+
   );
 }
