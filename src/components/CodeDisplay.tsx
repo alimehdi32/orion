@@ -3,12 +3,24 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import React, { useState } from 'react'
 import SimulationOutput from './SimulationOutput';
 
+
 interface CodeDisplayProps {
   code: string
 }
 
 export default function CodeDisplay({ code }: CodeDisplayProps) {
   const [clicked, setClicked] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy code', err);
+    }
+  };
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     // handle click event here
@@ -30,18 +42,33 @@ export default function CodeDisplay({ code }: CodeDisplayProps) {
       {clicked ? (
         <SimulationOutput />
       ) : (
-        <SyntaxHighlighter
-          language="Rust/anchor"
-          style={vscDarkPlus}
-          customStyle={{
-            margin: 0,
-            borderRadius: 0,
-            fontSize: '0.875rem',
-            lineHeight: '1.5',
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
+
+        <div className="flex flex-col items-center justify-between px-4 py-2">
+          <button
+            onClick={handleCopy}
+            className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-1 px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+          >
+            {copied ? "Copied" : "Copy"}
+          </button>
+          <SyntaxHighlighter
+            className="rounded-lg border border-gray-300 w-full max-w-full text-sm overflow-x-auto whitespace-pre-wrap break-words"
+            language="rust"
+            showLineNumbers
+            wrapLines
+            style={vscDarkPlus}
+            customStyle={{
+              margin: 0,
+              borderRadius: '0.5rem',
+              fontSize: '0.875rem',
+              lineHeight: '1.6',
+              wordBreak: 'break-word',
+              whiteSpace: 'pre-wrap',
+              overflowX: 'auto',
+            }}
+          >
+            {code}
+          </SyntaxHighlighter>
+        </div>
       )}
     </div>
 

@@ -65,57 +65,69 @@ export default function ChatInterface() {
 
 
   return (
-    <div className="flex flex-col md:flex-row justify-between w-full">
-      <div className="w-full md:w-[300px]">
+    <div className="flex flex-col md:flex-row  -right-[100px] w-full ">
+
+      {/* File Tree */}
+      <div className="w-full md:w-[300px] sm:absolute border-r border-gray-700">
         <FileTree filename={files} onSelectFile={handleSelectFile} selectedFile={selectedFile} />
       </div>
-      
-      <div className="flex flex-col flex-1 overflow-auto relative w-full">
+
+      {/* Chat Area */}
+      <div className="flex flex-col flex-1 overflow-hidden relative w-full">
+
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto space-y-4 mb-28 px-4">
+        <div className="flex-1 overflow-y-auto space-y-4 mb-28 px-4 py-4">
           {messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                id={message.role === 'user' ? `${files[index / 2]}` : 'code'}
-                className={`rounded-lg px-4 py-2 ${message.role === 'assistant' ? 'mb-9 text-gray-900 w-full md:max-w-[90%] lg:max-w-[95%] xl:max-w-[1000px]' : 'my-3.5 bg-blue-600 text-white max-w-[80%]'}`}
+                id={message.role === 'user' ? `${files[Math.floor(index / 2)]}` : 'code'}
+                className={`rounded-lg px-4 py-2 whitespace-pre-wrap break-words 
+              ${message.role === 'assistant'
+                    ? 'mb-9 text-gray-900 w-full max-w-full min-w-full md:max-w-[90%] lg:max-w-[95%] xl:max-w-[1000px]'
+                    : 'my-3.5 bg-blue-600 text-white max-w-[80%]'
+                  }`}
               >
                 {message.role === 'user'
                   ? message.content
                   : <CodeDisplay code={message.content} />}
               </div>
-
             </div>
           ))}
         </div>
 
-        {/* Input form */}
+        {/* Input Form */}
         <form
           onSubmit={handleSubmit}
-          className="flex gap-2 fixed bottom-4 left-4 right-4 md:left-[320px] md:right-6 bg-[#18181b] p-4 rounded-lg shadow-lg z-10 w-auto"
+          className="flex items-center gap-2 fixed bottom-4 left-4 right-4 md:left-[320px] md:right-6 bg-[#18181b] p-4 rounded-lg shadow-lg z-10"
         >
-          {isSubmitting ? <div className='text-2xl font-bold text-indigo-700'>Generating ...</div>
-          :<input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about Solana smart contracts..."
-            className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
-          />}
+          {isSubmitting ? (
+            <div className='text-2xl font-bold text-indigo-700'>Generating ...</div>
+          ) : (
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask about Solana smart contracts..."
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            />
+          )}
           <button
             disabled={isSubmitting}
             type="submit"
-            className="rounded-lg bg-blue-600 px-4 py-2 border-r border-t border-b border-gray-300 fixed left-[1445px] bottom-[32px] text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             {isSubmitting
-              ? <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+              ? <Loader2 className="w-6 h-6 animate-spin text-white" />
               : <PaperAirplaneIcon className="h-5 w-5" />}
           </button>
         </form>
+
       </div>
     </div>
+
 
   )
 } 

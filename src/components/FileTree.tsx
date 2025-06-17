@@ -15,7 +15,7 @@ export default function FileTree({ filename, onSelectFile, selectedFile }: FileT
 
 
   return (
-    <div className="p-4 mt-4 w-full md:mt-[200px] md:fixed md:w-60">
+    <div className="p-4 mt-4 w-full sticky left-1.5 -top-20 md:mt-[200px] md:fixed md:w-60">
       <div className="text-sm font-medium text-gray-500 mb-2">Files</div>
       <div className="space-y-1 overflow-y-auto max-h-[50vh] md:max-h-none">
         {filename.map((file) => (
