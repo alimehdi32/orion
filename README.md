@@ -27,18 +27,21 @@ A modern, no-code playground for Solana smart contracts built with Next.js and T
 git clone <repository-url>
 cd solana-playground
 ```
+2. API_KEY Integration:
+ create .env.local
+ GOOGLE_GENERATIVE_AI_API_KEY=YOUR_API_KEY
 
-2. Install dependencies:
+3. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Run the development server:
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
