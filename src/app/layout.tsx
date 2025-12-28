@@ -7,6 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
+  themeColor: "#000000",
   title: "Orion",
   description: "A no-code playground for Solana smart contracts",
 };
